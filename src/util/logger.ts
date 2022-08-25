@@ -147,6 +147,7 @@ export function setupLogger() {
       ),
     ],
     exitOnError: false, // do not exit on handled exceptions
+    level: Properties.console_log_level
   };
   logger = createLogger(options);
 }

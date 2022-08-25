@@ -71,6 +71,8 @@ export class Properties {
   public static draw_cfg: boolean;
   public static test_minimization: boolean;
 
+  public static crash_reproduction: boolean;
+
   public static getDescription(property: string): string {
     return properties[property].description;
   }
