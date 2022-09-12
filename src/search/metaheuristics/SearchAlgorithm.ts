@@ -101,17 +101,21 @@ export abstract class SearchAlgorithm<T extends Encoding> {
     budgetManager.initializationStarted();
     getUserInterface().startProgressBar();
 
+    console.log('search started');
     // Inform listeners that the search started
     this._listeners.forEach((listener) => {
       listener.searchStarted(this, budgetManager, terminationManager);
     });
+    console.log('update progress bar');
     getUserInterface().updateProgressBar(
       this.progress,
       budgetManager.getBudget()
     );
 
+    console.log('About to initialise');
     // Initialize search process
     await this._initialize(budgetManager, terminationManager);
+    console.log('initialised');
 
     // Stop initialization budget tracking, inform the listeners, and start search budget tracking
     budgetManager.initializationStopped();
@@ -130,8 +134,19 @@ export abstract class SearchAlgorithm<T extends Encoding> {
       budgetManager.hasBudgetLeft() &&
       !terminationManager.isTriggered()
     ) {
+      console.log(budgetManager.getBudget());
+
       // Start next iteration of the search process
-      await this._iterate(budgetManager, terminationManager);
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            this._iterate(budgetManager, terminationManager);
+            resolve(0);
+          } catch (e) {
+            reject(e);
+          }
+        }, 5000);
+      })
 
       // Inform the budget manager and listeners that an iteration happened
       budgetManager.iteration(this);
