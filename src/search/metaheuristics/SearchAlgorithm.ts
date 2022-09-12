@@ -102,7 +102,6 @@ export abstract class SearchAlgorithm<T extends Encoding> {
     budgetManager.initializationStarted();
     getUserInterface().startProgressBar();
 
-    // console.log(subject.path, subject.name);
     // console.log('search started');
     // Inform listeners that the search started
     this._listeners.forEach((listener) => {
