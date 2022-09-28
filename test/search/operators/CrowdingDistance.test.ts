@@ -15,8 +15,24 @@ const expect = chai.expect;
  */
 
 describe("Crowding distance", function () {
-  before(() => {
-    setUserInterface(createStubInstance(CommandLineInterface));
+  beforeEach(async () => {
+    await guessCWD(null);
+    await setupOptions("", "");
+    await loadConfig();
+    await processConfig(
+      {
+        target_root_directory: "./",
+      },
+      ""
+    );
+    await setupLogger();
+
+    setUserInterface(
+      new CommandLineInterface(
+        Properties.console_log_level === "silent",
+        Properties.console_log_level === "verbose"
+      )
+    );
   });
 
   it("empty front", () => {

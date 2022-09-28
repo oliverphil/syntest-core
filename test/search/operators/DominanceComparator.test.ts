@@ -14,8 +14,24 @@ const expect = chai.expect;
  * @author Annibale Panichella
  */
 describe("Dominance comparator", function () {
-  before(() => {
-    setUserInterface(createStubInstance(CommandLineInterface));
+  before(async () => {
+    await guessCWD(null);
+    await setupOptions("", "");
+    await loadConfig();
+    await processConfig(
+      {
+        target_root_directory: "./",
+      },
+      ""
+    );
+    await setupLogger();
+
+    setUserInterface(
+      new CommandLineInterface(
+        Properties.console_log_level === "silent",
+        Properties.console_log_level === "verbose"
+      )
+    );
   });
 
   let objectives: Set<BranchObjectiveFunction<DummyEncodingMock>>;
