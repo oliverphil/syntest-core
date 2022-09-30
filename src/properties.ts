@@ -26,6 +26,7 @@ export class Properties {
   public static final_suite_directory: string;
   public static cfg_directory: string;
 
+
   public static temp_test_directory: string;
   public static temp_log_directory: string;
   public static temp_instrumented_directory: string;

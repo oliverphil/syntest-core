@@ -2,6 +2,7 @@ import { Target } from "./Target";
 import { CFG } from "./graph/CFG";
 import { Properties } from "../../properties";
 import * as path from "path";
+import * as fs from "fs";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const globby = require("globby");
 
@@ -48,12 +49,15 @@ export abstract class TargetPool {
       const actualPaths = globby.sync(_path);
 
       for (let _path of actualPaths) {
-        _path = path.resolve(_path);
-        if (!includedMap.has(_path)) {
-          includedMap.set(_path, []);
-        }
+        const fileContents = fs.readFileSync(_path).toString();
+        if (!fileContents.includes('use strict') && !fileContents.includes('(;;)')) {
+          _path = path.resolve(_path);
+          if (!includedMap.has(_path)) {
+            includedMap.set(_path, []);
+          }
 
-        includedMap.get(_path).push(target);
+          includedMap.get(_path).push(target);
+        }
       }
     });
 
