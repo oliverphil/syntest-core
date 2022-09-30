@@ -6,6 +6,7 @@ import * as fs from "fs";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { TargetMetaData } from "./TargetMetaData";
 import globby = require("globby");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 
 export abstract class TargetPool {
   private _targets: Target[];
