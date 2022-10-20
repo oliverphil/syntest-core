@@ -88,11 +88,15 @@ export abstract class EvolutionaryAlgorithm<
     }
 
     // Evaluate initial population before starting the search loop
-    await this._objectiveManager.evaluateMany(
-      this._population,
-      budgetManager,
-      terminationManager
-    );
+    try {
+      await this._objectiveManager.evaluateMany(
+          this._population,
+          budgetManager,
+          terminationManager
+      );
+    } catch (e) {
+        // console.log(e);
+    }
 
     // Compute ranking and crowding distance
     this._environmentalSelection(this._populationSize);

@@ -130,10 +130,9 @@ export abstract class ObjectiveManager<T extends Encoding> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     terminationManager: TerminationManager
   ): Promise<void> {
-    // Execute the encoding
     const result = await this._runner.execute(this._subject, encoding);
+    // Execute the encoding
     budgetManager.evaluation(encoding);
-
     // Store the execution result in the encoding
     encoding.setExecutionResult(result);
 
@@ -142,7 +141,6 @@ export abstract class ObjectiveManager<T extends Encoding> {
       // Calculate and store the distance
       const distance = objectiveFunction.calculateDistance(encoding);
       encoding.setDistance(objectiveFunction, distance);
-
       // Update the objectives
       this._updateObjectives(objectiveFunction, encoding, distance);
     });
