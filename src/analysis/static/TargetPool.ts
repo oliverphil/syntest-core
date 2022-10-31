@@ -50,7 +50,7 @@ export abstract class TargetPool {
 
       for (let _path of actualPaths) {
         const fileContents = fs.readFileSync(_path).toString();
-        if (!fileContents.includes('use strict') && !fileContents.includes('(;;)')) {
+        if (/*!fileContents.includes('use strict') && */!fileContents.includes('(;;)')) {
           _path = path.resolve(_path);
           if (!includedMap.has(_path)) {
             includedMap.set(_path, []);
