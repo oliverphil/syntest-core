@@ -131,6 +131,7 @@ export abstract class ObjectiveManager<T extends Encoding> {
     terminationManager: TerminationManager
   ): Promise<void> {
     const result = await this._runner.execute(this._subject, encoding);
+    // console.log('runner executed', result);
     // Execute the encoding
     budgetManager.evaluation(encoding);
     // Store the execution result in the encoding

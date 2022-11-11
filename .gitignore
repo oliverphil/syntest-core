@@ -123,3 +123,5 @@ package-lock.json
 
 .idea/
 *.iml
+
+.DS_Store

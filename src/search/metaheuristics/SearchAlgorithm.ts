@@ -107,21 +107,21 @@ export abstract class SearchAlgorithm<T extends Encoding> {
     getUserInterface().startProgressBar();
 
     // console.log(subject);
-    console.log('search started');
+    // console.log('search started');
     // Inform listeners that the search started
     this._listeners.forEach((listener) => {
       listener.searchStarted(this, budgetManager, terminationManager);
     });
-    console.log('update progress bar');
+    // console.log('update progress bar');
     getUserInterface().updateProgressBar(
       this.progress("branch"),
       budgetManager.getBudget()
     );
 
-    console.log('About to initialise');
+    // console.log('About to initialise');
     // Initialize search process
     await this._initialize(budgetManager, terminationManager);
-    console.log('initialised');
+    // console.log('initialised');
 
     // Stop initialization budget tracking, inform the listeners, and start search budget tracking
     budgetManager.initializationStopped();

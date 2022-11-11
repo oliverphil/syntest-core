@@ -60,7 +60,7 @@ export abstract class TargetPool {
         }
       }
     });
-    console.log(includedMap);
+    // console.log(includedMap);
 
     // only exclude files if all contracts are excluded
     excludes.forEach((exclude) => {
