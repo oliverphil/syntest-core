@@ -97,11 +97,11 @@ export abstract class EvolutionaryAlgorithm<
     } catch (e) {
         console.log(e);
     }
-    console.log('evaluate many done');
+    // console.log('evaluate many done');
 
     // Compute ranking and crowding distance
     this._environmentalSelection(this._populationSize);
-    console.log('environmental selection done');
+    // console.log('environmental selection done');
   }
 
   /**

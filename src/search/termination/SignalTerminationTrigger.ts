@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+import { exit } from "process";
 import { TerminationTrigger } from "./TerminationTrigger";
 
 /**
@@ -28,9 +29,16 @@ export class SignalTerminationTrigger implements TerminationTrigger {
 
   constructor() {
     this._triggered = false;
-    process.on("SIGINT", this.handle);
-    process.on("SIGTERM", this.handle);
-    process.on("SIGQUIT", this.handle);
+    console.log(process.listeners);
+    if (process.listenerCount("SIGINT") < 1) {
+      process.on("SIGINT", this.handle);
+    }
+    if (process.listenerCount("SIGTERM") < 1) {
+      process.on("SIGTERM", this.handle); 
+    }
+    if (process.listenerCount("SIGQUIT") < 1) {
+      process.on("SIGQUIT", this.handle); 
+    }
   }
 
   /**
@@ -44,6 +52,7 @@ export class SignalTerminationTrigger implements TerminationTrigger {
       `Received ${signal}. Stopping search. Press Control-D to exit.`
     );
     this._triggered = true;
+    exit(1);
   }
 
   /**
