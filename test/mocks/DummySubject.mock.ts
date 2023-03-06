@@ -5,7 +5,7 @@ export class DummySearchSubject<T extends Encoding> extends SearchSubject<T> {
   protected objectives: ObjectiveFunction<T>[];
 
   constructor(objectives: ObjectiveFunction<T>[]) {
-    super("", "", new DummyCFG());
+    super("", "", new DummyCFG(), undefined);
     this.objectives = objectives;
   }
 
@@ -13,7 +13,7 @@ export class DummySearchSubject<T extends Encoding> extends SearchSubject<T> {
     return this.objectives;
   }
 
-  protected _extractObjectives(): void {
+  protected _extractObjectives(stackTrace): void {
     return;
   }
 

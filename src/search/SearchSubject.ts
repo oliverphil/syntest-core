@@ -22,6 +22,9 @@ import { ObjectiveFunction } from "./objective/ObjectiveFunction";
 import { Encoding } from "./Encoding";
 import { Edge } from "../analysis/static/graph/Edge";
 import { getUserInterface } from "../ui/UserInterface";
+import {Runtime} from "inspector";
+import {StackTrace} from "../stackTraceTypes";
+
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Graph, alg } = require("@dagrejs/graphlib");
@@ -70,12 +73,12 @@ export abstract class SearchSubject<T extends Encoding> {
    * @param functions Functions of the subject
    * @protected
    */
-  protected constructor(path: string, name: string, cfg: CFG) {
+  protected constructor(path: string, name: string, cfg: CFG, stackTrace: StackTrace) {
     this._path = path;
     this._name = name;
     this._cfg = cfg;
     this._objectives = new Map<ObjectiveFunction<T>, ObjectiveFunction<T>[]>();
-    this._extractObjectives();
+    this._extractObjectives(stackTrace);
     this._extractPaths();
   }
 
@@ -83,7 +86,7 @@ export abstract class SearchSubject<T extends Encoding> {
    * Extract objectives from the subject
    * @protected
    */
-  protected abstract _extractObjectives(): void;
+  protected abstract _extractObjectives(stackTrace: StackTrace): void;
 
   /**
    *
