@@ -114,7 +114,7 @@ export abstract class Encoding {
    * @param objectiveFunction The objective.
    */
   getDistance(objectiveFunction: ObjectiveFunction<Encoding>): number {
-    if (this._objectives.has(objectiveFunction))
+    if (!objectiveFunction['_stackTrace'] && this._objectives.has(objectiveFunction))
       return this._objectives.get(objectiveFunction);
     else {
       // this part is needed for DynaMOSA
