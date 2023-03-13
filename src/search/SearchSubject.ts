@@ -140,7 +140,10 @@ export abstract class SearchSubject<T extends Encoding> {
   public getChildObjectives(
     objective: ObjectiveFunction<T>
   ): ObjectiveFunction<T>[] {
-    return Array.from(this._objectives.get(objective));
+    if (this._objectives.get(objective)) {
+      return Array.from(this._objectives.get(objective));
+    }
+    return [];
   }
 
   public getPath(from: string, to: string): number {
