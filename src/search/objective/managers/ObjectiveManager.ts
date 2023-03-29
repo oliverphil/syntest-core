@@ -153,23 +153,24 @@ export abstract class ObjectiveManager<T extends Encoding> {
 
       const hash = crypto
         .createHash("md5")
-        .update(result.getExceptions())
+        .update(result.getExceptions().toString())
         .digest("hex");
 
       const numOfExceptions = this._archive
         .getObjectives()
         .filter((objective) => objective instanceof ExceptionObjectiveFunction)
         .filter((objective) => objective.getIdentifier() === hash).length;
+      console.log("number of exceptions", numOfExceptions);
       if (numOfExceptions === 0) {
         // TODO this makes the archive become too large crashing the tool
-        this._archive.update(
-          new ExceptionObjectiveFunction(
-            this._subject,
-            hash,
-            result.getExceptions()
-          ),
-          encoding
-        );
+        // this._archive.update(
+        //   new ExceptionObjectiveFunction(
+        //     this._subject,
+        //     hash,
+        //     result.getExceptions()
+        //   ),
+        //   encoding
+        // );
       }
     }
   }
