@@ -109,7 +109,7 @@ export abstract class SearchAlgorithm<T extends Encoding> {
     });
     // console.log('update progress bar');
     getUserInterface().updateProgressBar(
-      this.progress("branch"),
+      this.progress("distance"),
       budgetManager.getBudget()
     );
 
@@ -124,7 +124,7 @@ export abstract class SearchAlgorithm<T extends Encoding> {
       listener.initializationDone(this, budgetManager, terminationManager)
     );
     getUserInterface().updateProgressBar(
-      this.progress("branch"),
+      this.progress("distance"),
       budgetManager.getBudget()
     );
     budgetManager.searchStarted();
@@ -155,7 +155,7 @@ export abstract class SearchAlgorithm<T extends Encoding> {
         listener.iteration(this, budgetManager, terminationManager)
       );
       getUserInterface().updateProgressBar(
-        this.progress("branch"),
+        this.progress("distance"),
         budgetManager.getBudget()
       );
     }
@@ -239,6 +239,10 @@ export abstract class SearchAlgorithm<T extends Encoding> {
    * The progress of the search process.
    */
   public progress(objectiveType = "mixed"): number {
+    if (objectiveType === 'distance') {
+      const progress = global.distance;
+      return progress;
+    }
     const numberOfCoveredObjectives = this.getCovered(objectiveType);
     const numberOfUncoveredObjectives = this.getUncovered(objectiveType);
     const progress =

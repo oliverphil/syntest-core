@@ -64,7 +64,9 @@ export class Archive<T extends Encoding> {
    * @param encoding The corresponding encoding
    */
   update(objectiveFunction: ObjectiveFunction<T>, encoding: T): void {
-    this._map.set(objectiveFunction, encoding);
+    if (encoding.getExecutionResult().hasExceptions()) {
+      this._map.set(objectiveFunction, encoding);
+    }
   }
 
   /**

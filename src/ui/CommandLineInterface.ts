@@ -41,14 +41,14 @@ export class CommandLineInterface extends UserInterface {
     this.showProgressBar = true;
 
     this.bar = new cliProgress.SingleBar({
-      format: "Coverage: {bar} {percentage}% | Remaining budget: {budget}%",
+      format: "Distance: {bar} {percentage} | Remaining budget: {budget}%",
       barCompleteChar: "\u2588",
       barIncompleteChar: "\u2591",
       hideCursor: true,
       synchronousUpdate: false,
     });
 
-    this.bar.start(100, this.progressValue, {
+    this.bar.start(100, 100, {
       budget: "100",
     });
   }

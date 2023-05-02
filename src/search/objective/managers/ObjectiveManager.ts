@@ -140,7 +140,11 @@ export abstract class ObjectiveManager<T extends Encoding> {
     // For all current objectives
     this._currentObjectives.forEach((objectiveFunction) => {
       // Calculate and store the distance
-      const distance = objectiveFunction.calculateDistance(encoding);
+      // const distance = objectiveFunction.calculateDistance(encoding);
+      const distance = encoding.getDistance(objectiveFunction);
+      if (distance < global.distance) {
+        global.distance = distance;
+      }
       encoding.setDistance(objectiveFunction, distance);
       // Update the objectives
       this._updateObjectives(objectiveFunction, encoding, distance);
@@ -160,7 +164,7 @@ export abstract class ObjectiveManager<T extends Encoding> {
         .getObjectives()
         .filter((objective) => objective instanceof ExceptionObjectiveFunction)
         .filter((objective) => objective.getIdentifier() === hash).length;
-      console.log("number of exceptions", numOfExceptions);
+      // console.log("number of exceptions", numOfExceptions);
       if (numOfExceptions === 0) {
         // TODO this makes the archive become too large crashing the tool
         // this._archive.update(

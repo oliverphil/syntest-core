@@ -33,6 +33,7 @@ export * from "./search/budget/EvaluationBudget";
 export * from "./search/budget/IterationBudget";
 export * from "./search/budget/SearchTimeBudget";
 export * from "./search/budget/TotalTimeBudget";
+export * from "./search/budget/DistanceEarlyStoppingBudget";
 
 // Termination
 export * from "./search/termination/TerminationManager";

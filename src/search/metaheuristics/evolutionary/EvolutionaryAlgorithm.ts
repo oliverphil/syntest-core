@@ -121,9 +121,9 @@ export abstract class EvolutionaryAlgorithm<
 
     // If all objectives are covered, we don't need to rank the population anymore
     // The final test cases are in the archive, rather than the population
-    if (!this._objectiveManager.hasObjectives()) {
-      return;
-    }
+    // if (!this._objectiveManager.hasObjectives()) {
+    //   return;
+    // }
 
     this._population.push(...offspring);
     this._environmentalSelection(this._populationSize);
