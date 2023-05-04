@@ -19,6 +19,7 @@
 import { Budget } from "./Budget";
 import { Encoding } from "../Encoding";
 import { SearchAlgorithm } from "../metaheuristics/SearchAlgorithm";
+import {ObjectiveFunction} from '../objective/ObjectiveFunction';
 
 /**
  * Budget for the number of iterations performed during the search process.
@@ -32,6 +33,10 @@ export class DistanceEarlyStoppingBudget<T extends Encoding> implements Budget<T
      */
     protected _tracking: boolean;
 
+    private _distance: number;
+
+    private _currentObjectives:  ObjectiveFunction<Encoding>[];
+
     /**
      * Constructor.
      *
@@ -39,27 +44,29 @@ export class DistanceEarlyStoppingBudget<T extends Encoding> implements Budget<T
      */
     constructor(maxIterations = Number.MAX_SAFE_INTEGER) {
         this._tracking = false;
+        this._distance = Number.MAX_SAFE_INTEGER;
+        this._currentObjectives = [];
     }
 
     /**
      * @inheritDoc
      */
     getRemainingBudget(): number {
-        return global.distance;
+        return this._distance;
     }
 
     /**
      * @inheritDoc
      */
     getUsedBudget(): number {
-        return global.distance;
+        return Number.MAX_SAFE_INTEGER - this._distance;
     }
 
     /**
      * @inheritDoc
      */
     getTotalBudget(): number {
-        return global.distance;
+        return Number.MAX_SAFE_INTEGER;
     }
 
     /**
@@ -99,11 +106,21 @@ export class DistanceEarlyStoppingBudget<T extends Encoding> implements Budget<T
      * @inheritDoc
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    iteration(searchAlgorithm: SearchAlgorithm<T>): void {}
+    iteration(searchAlgorithm: SearchAlgorithm<T>): void {
+        this._currentObjectives = searchAlgorithm.getObjectiveManager().getArchive().getObjectives();
+        this._distance = Number.MAX_SAFE_INTEGER;
+    }
 
     /**
      * @inheritDoc
      */
     // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
-    evaluation(encoding: T): void {}
+    evaluation(encoding: T): void {
+        this._currentObjectives.forEach(obj => {
+            const distance = obj.calculateDistance(encoding);
+            if (this._distance < distance) {
+                this._distance = distance;
+            }
+        })
+    }
 }
