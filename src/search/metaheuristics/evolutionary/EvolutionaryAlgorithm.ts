@@ -144,20 +144,24 @@ export abstract class EvolutionaryAlgorithm<
     const rounds = Math.max(2, Math.round(this._populationSize / 5));
 
     while (offspring.length < this._populationSize) {
-      const parentA = tournamentSelection(this._population, rounds);
-      const parentB = tournamentSelection(this._population, rounds);
+      try {
+        const parentA = tournamentSelection(this._population, rounds);
+        const parentB = tournamentSelection(this._population, rounds);
 
-      if (prng.nextDouble(0, 1) <= Properties.crossover_probability) {
-        const [childA, childB] = this._crossover.crossOver(parentA, parentB);
+        if (prng.nextDouble(0, 1) <= Properties.crossover_probability) {
+          const [childA, childB] = this._crossover.crossOver(parentA, parentB);
 
-        const testCase1 = childA.copy().mutate(this._encodingSampler);
-        offspring.push(testCase1);
+          const testCase1 = childA.copy().mutate(this._encodingSampler);
+          offspring.push(testCase1);
 
-        const testCase2 = childB.copy().mutate(this._encodingSampler);
-        offspring.push(testCase2);
-      } else {
-        offspring.push(parentA.copy().mutate(this._encodingSampler));
-        offspring.push(parentB.copy().mutate(this._encodingSampler));
+          const testCase2 = childB.copy().mutate(this._encodingSampler);
+          offspring.push(testCase2);
+        } else {
+          offspring.push(parentA.copy().mutate(this._encodingSampler));
+          offspring.push(parentB.copy().mutate(this._encodingSampler));
+        }
+      } catch (e) {
+        //
       }
     }
     offspring.push(this._encodingSampler.sample());
