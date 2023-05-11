@@ -130,7 +130,11 @@ export abstract class ObjectiveManager<T extends Encoding> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     terminationManager: TerminationManager
   ): Promise<void> {
-    const result = await this._runner.execute(this._subject, encoding);
+    let result = undefined;
+
+    try {
+      result = await this._runner.execute(this._subject, encoding);
+    } catch (e) { return; }
     // console.log('runner executed', result);
     // Execute the encoding
     budgetManager.evaluation(encoding);
