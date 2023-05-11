@@ -144,7 +144,7 @@ export abstract class EvolutionaryAlgorithm<
     const rounds = Math.max(2, Math.round(this._populationSize / 5));
 
     let num = 0;
-    while (offspring.length < this._populationSize && num++ < this._populationSize * 10) {
+    while (offspring.length < this._populationSize && num++ < this._populationSize * 4) {
       try {
         const parentA = tournamentSelection(this._population, rounds);
         const parentB = tournamentSelection(this._population, rounds);
