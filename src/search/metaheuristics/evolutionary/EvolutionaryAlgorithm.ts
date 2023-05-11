@@ -95,7 +95,7 @@ export abstract class EvolutionaryAlgorithm<
           terminationManager
       );
     } catch (e) {
-        console.log(e);
+        // console.log(e);
     }
     // console.log('evaluate many done');
 
@@ -113,11 +113,15 @@ export abstract class EvolutionaryAlgorithm<
     terminationManager: TerminationManager
   ): Promise<void> {
     const offspring = this._generateOffspring();
-    await this._objectiveManager.evaluateMany(
-      offspring,
-      budgetManager,
-      terminationManager
-    );
+    try {
+      await this._objectiveManager.evaluateMany(
+          offspring,
+          budgetManager,
+          terminationManager
+      );
+    } catch (e) {
+      //
+    }
 
     // If all objectives are covered, we don't need to rank the population anymore
     // The final test cases are in the archive, rather than the population
