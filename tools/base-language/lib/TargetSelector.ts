@@ -52,8 +52,11 @@ export class TargetSelector {
         if (!targetMap.has(_path)) {
           targetMap.set(_path, []);
         }
-
-        targetMap.get(_path).push(...targets);
+        for (const target of targets) {
+          if (!targetMap.get(_path).includes(target)) {
+            targetMap.get(_path).push(target);
+          }
+        }
       }
     }
 
