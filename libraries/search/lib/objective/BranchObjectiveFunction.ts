@@ -95,22 +95,22 @@ export class BranchObjectiveFunction<
       closestCoveredNode.id
     );
 
-    if (outgoingEdges.length < 2) {
-      // weird
-      throw new Error(shouldNeverHappen("BranchObjectiveFunction"));
-    }
+    // if (outgoingEdges.length < 2) {
+    //   // weird
+    //   throw new Error(shouldNeverHappen("BranchObjectiveFunction"));
+    // }
     if (outgoingEdges.length > 2) {
       // weird
       throw new Error(shouldNeverHappen("BranchObjectiveFunction"));
     }
     const trueEdge = outgoingEdges.find(
-      (edge) => edge.type === EdgeType.CONDITIONAL_TRUE
+      (edge) => edge.type === EdgeType.CONDITIONAL_TRUE || edge.type === EdgeType.NORMAL
     );
     const falseEdge = outgoingEdges.find(
-      (edge) => edge.type === EdgeType.CONDITIONAL_FALSE
+        (edge) => edge.type === EdgeType.CONDITIONAL_FALSE
     );
 
-    if (!trueEdge || !falseEdge) {
+    if (!trueEdge || (!falseEdge && outgoingEdges.length === 2)) {
       // weird
       throw new Error(shouldNeverHappen("BranchObjectiveFunction"));
     }
