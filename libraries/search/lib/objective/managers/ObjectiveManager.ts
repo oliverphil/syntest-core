@@ -161,7 +161,11 @@ export abstract class ObjectiveManager<T extends Encoding> {
       if (!budgetManager.hasBudgetLeft() || terminationManager.isTriggered())
         break;
 
-      await this.evaluateOne(encoding, budgetManager, terminationManager);
+      try {
+        await this.evaluateOne(encoding, budgetManager, terminationManager);
+      } catch {
+        //
+      }
     }
   }
 
