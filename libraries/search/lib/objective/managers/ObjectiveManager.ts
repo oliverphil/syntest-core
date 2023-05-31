@@ -192,7 +192,12 @@ export abstract class ObjectiveManager<T extends Encoding> {
     // For all current objectives
     for (const objectiveFunction of this._currentObjectives) {
       // Calculate and store the distance
-      const distance = objectiveFunction.calculateDistance(encoding);
+      let distance = Number.MAX_SAFE_INTEGER;
+      try {
+        distance = objectiveFunction.calculateDistance(encoding);
+      } catch {
+        //
+      }
       encoding.setDistance(objectiveFunction, distance);
 
       // When the objective is covered, update the objectives and the archive

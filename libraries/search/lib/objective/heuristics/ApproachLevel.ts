@@ -15,9 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ControlFlowGraph, EdgeType, Node } from "@syntest/cfg";
+import {ControlFlowGraph, EdgeType, Node} from "@syntest/cfg";
 
-import { Datapoint } from "../../util/Datapoint";
+import {Datapoint} from "../../util/Datapoint";
 
 export class ApproachLevel {
   public calculate<S>(
@@ -77,9 +77,9 @@ export class ApproachLevel {
 
       for (const edge of incomingEdges) {
         // ignore if already visited node
-        if (visitedNodeIdSet.has(edge.source)) {
-          continue;
-        }
+        // if (visitedNodeIdSet.has(edge.source)) {
+        //   continue;
+        // }
 
         // return if one of targets nodes was found
         if (targets.has(edge.source)) {
