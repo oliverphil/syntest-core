@@ -131,6 +131,7 @@ export abstract class SearchAlgorithm<T extends Encoding> {
       budgetManager,
       terminationManager
     );
+    // console.log("Search Started");
 
     // Start search until the budget has expired, a termination trigger has been triggered, or there are no more objectives
     while (
@@ -146,6 +147,7 @@ export abstract class SearchAlgorithm<T extends Encoding> {
         terminationManager
       );
 
+      // console.log("Iteration");
       // Start next iteration of the search process
       await this._iterate(budgetManager, terminationManager);
 
@@ -164,6 +166,7 @@ export abstract class SearchAlgorithm<T extends Encoding> {
     // Stop search budget tracking
     budgetManager.searchStopped();
 
+    // console.log("Search Complete");
     (<TypedEmitter<Events>>process).emit(
       "searchComplete",
       this,
@@ -190,8 +193,10 @@ export abstract class SearchAlgorithm<T extends Encoding> {
       const test = this._objectiveManager.getArchive().getEncoding(key);
       const result: ExecutionResult = test.getExecutionResult();
 
+      // @ts-ignore
+      const paths: string[] = key._id.split(":")[0].split("/");
       // TODO this does not work when there are files with the same name in different directories!!
-      const paths = key.getSubject().path.split("/");
+      // const paths = key.getSubject().path.split("/");
       const fileName = paths[paths.length - 1];
 
       for (const current of result
@@ -215,8 +220,10 @@ export abstract class SearchAlgorithm<T extends Encoding> {
       const test = this._objectiveManager.getArchive().getEncoding(key);
       const result: ExecutionResult = test.getExecutionResult();
 
+      // @ts-ignore
+      const paths: string[] = key._id.split(":")[0].split("/");
       // TODO this does not work when there are files with the same name in different directories!!
-      const paths = key.getSubject().path.split("/");
+      // const paths = key.getSubject().path.split("/");
       const fileName = paths[paths.length - 1];
 
       for (const current of result

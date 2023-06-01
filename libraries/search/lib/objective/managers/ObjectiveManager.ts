@@ -222,7 +222,7 @@ export abstract class ObjectiveManager<T extends Encoding> {
     }
 
     // Create separate exception objective when an exception occurred in the execution
-    if (result.hasExceptions()) {
+    // if (result.hasExceptions()) {
       // TODO there must be a better way
       //  investigate error patterns somehow
 
@@ -246,7 +246,7 @@ export abstract class ObjectiveManager<T extends Encoding> {
           encoding
         );
       }
-    }
+    // }
   }
 
   /**

@@ -118,7 +118,12 @@ export abstract class Encoding {
       // this part is needed for DynaMOSA
       // it may happen that the test was created when the objective in input was not part of the search yet
       // with this code, we keep the objective values up to date
-      const distance = objectiveFunction.calculateDistance(this);
+      let distance = Number.MAX_SAFE_INTEGER;
+      try {
+        distance = objectiveFunction.calculateDistance(this);
+      } catch {
+        //
+      }
       this._objectives.set(objectiveFunction, distance);
       return distance;
     }

@@ -67,7 +67,8 @@ export class ApproachLevel {
     const visitedNodeIdSet = new Set<string>([from]);
     const searchQueue: [string, number][] = [[from, 0]];
 
-    while (searchQueue.length > 0) {
+    // let evals = 5000;
+    while (searchQueue.length > 0 /*&& evals-- > 0*/) {
       const current = searchQueue.shift();
       const currentNodeId: string = current[0];
       const currentDistance: number = current[1];
@@ -77,9 +78,9 @@ export class ApproachLevel {
 
       for (const edge of incomingEdges) {
         // ignore if already visited node
-        // if (visitedNodeIdSet.has(edge.source)) {
-        //   continue;
-        // }
+        if (visitedNodeIdSet.has(edge.source)) {
+          continue;
+        }
 
         // return if one of targets nodes was found
         if (targets.has(edge.source)) {

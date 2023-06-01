@@ -68,10 +68,17 @@ export class BranchObjectiveFunction<
       return 0;
     }
 
-    // find the corresponding node inside the cfg
-    const function_ = this._subject.cfg.functions.find(
-      (function_) => function_.graph.getNodeById(this._id) !== undefined
-    );
+    let function_;
+    for (const cfg of this._subject.getCfgs()) {
+      const func = cfg.functions.find(
+          (function_) => function_.graph.getNodeById(this._id) !== undefined
+      );
+      if (func) {
+        function_ = func;
+        break;
+      }
+    }
+
     const targetNode = function_.graph.getNodeById(this._id);
 
     if (!targetNode) {

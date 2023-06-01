@@ -20,8 +20,10 @@ import { MetricManager } from "@syntest/metric";
 import { Module, ModuleManager } from "@syntest/module";
 
 import { SearchMetricListener } from "./plugins/event-listeners/SearchMetricListener";
+import {
+  CrashStructuralObjectiveManagerPlugin
+} from "./plugins/objective-managers/CrashStructuralObjectiveManagerPlugin";
 import { SimpleObjectiveManagerPlugin } from "./plugins/objective-managers/SimpleObjectiveManagerPlugin";
-import { StructuralObjectiveManagerPlugin } from "./plugins/objective-managers/StructuralObjectiveManagerPlugin";
 import { UncoveredObjectiveManagerPlugin } from "./plugins/objective-managers/UncoveredObjectiveManagerPlugin";
 import { DefaultProcreationPlugin } from "./plugins/procreation-operators/DefaultProcreationPlugin";
 import { MOSAFamilyPlugin } from "./plugins/search-algorithms/MOSAFamilyPlugin";
@@ -45,7 +47,7 @@ export abstract class TestingToolModule extends Module {
     moduleManager.registerPlugin(this.name, new SimpleObjectiveManagerPlugin());
     moduleManager.registerPlugin(
       this.name,
-      new StructuralObjectiveManagerPlugin()
+      new CrashStructuralObjectiveManagerPlugin()
     );
     moduleManager.registerPlugin(
       this.name,

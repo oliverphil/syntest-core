@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Target } from "@syntest/analysis";
 import { Metric, MetricManager, SeriesType } from "@syntest/metric";
 import { EventListenerPlugin } from "@syntest/module";
 import {
@@ -295,11 +296,15 @@ export class SearchMetricListener extends EventListenerPlugin {
         subject: SearchSubject<E>,
         budgetManager: BudgetManager<E>
       ) => {
-        // create a new metric manager for this search subject
-        this.currentNamespace = subject.name;
+        // @ts-ignore
+        for (const target of subject._targets as Target[]) {
+          // create a new metric manager for this search subject
+          this.currentNamespace = target.name;
 
-        this.recordInitialProperties(searchAlgorithm);
-        this.recordSeries(searchAlgorithm, subject, budgetManager);
+          this.recordInitialProperties(searchAlgorithm);
+          this.recordSeries(searchAlgorithm, subject, budgetManager);
+        }
+
       }
     );
 

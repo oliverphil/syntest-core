@@ -33,19 +33,31 @@ export abstract class SearchSubject<T extends Encoding> {
    * Subject Target
    * @protected
    */
-  protected readonly _target: Target;
+  protected _target: Target;
+
+  set target(target: Target) {
+    this._target = target;
+  }
 
   /**
    * The root context.
    * @protected
    */
-  protected readonly _rootContext: RootContext<unknown>;
+  protected _rootContext: RootContext<unknown>;
+
+  set rootContext(context: RootContext<unknown>) {
+    this._rootContext = context;
+  }
 
   /**
    * Mapping of objectives to adjacent objectives
    * @protected
    */
   protected _objectives: Map<ObjectiveFunction<T>, ObjectiveFunction<T>[]>;
+
+  set objectives(objs: Map<ObjectiveFunction<T>, ObjectiveFunction<T>[]>) {
+    this._objectives = objs;
+  }
 
   /**
    * Constructor.
@@ -66,6 +78,8 @@ export abstract class SearchSubject<T extends Encoding> {
    * @protected
    */
   protected abstract _extractObjectives(): void;
+
+  abstract getCfgs(): ControlFlowProgram<unknown>[];
 
   /**
    * Retrieve objectives.
