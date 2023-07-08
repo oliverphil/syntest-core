@@ -189,6 +189,7 @@ export abstract class ObjectiveManager<T extends Encoding> {
     // Store the execution result in the encoding
     encoding.setExecutionResult(result);
 
+    let overallDistance = 0;
     // For all current objectives
     for (const objectiveFunction of this._currentObjectives) {
       // Calculate and store the distance
@@ -198,6 +199,7 @@ export abstract class ObjectiveManager<T extends Encoding> {
       } catch {
         //
       }
+      overallDistance += distance;
       encoding.setDistance(objectiveFunction, distance);
 
       // When the objective is covered, update the objectives and the archive
@@ -219,6 +221,10 @@ export abstract class ObjectiveManager<T extends Encoding> {
           }`
         );
       }
+    }
+
+    if (overallDistance === 0) {
+      this._currentObjectives.clear();
     }
 
     // Create separate exception objective when an exception occurred in the execution

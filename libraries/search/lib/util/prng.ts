@@ -37,7 +37,7 @@ export function getSeed(seed?: string): string {
       usedSeed = `${seedrandom()()}`;
     }
   }
-
+  console.log("seed:", usedSeed);
   return usedSeed;
 }
 
