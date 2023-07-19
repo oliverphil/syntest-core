@@ -22,7 +22,7 @@ import seedrandom = require("seedrandom");
 import { Charset } from "./Charset";
 import {
   emptyArray,
-  singletonAlreadySet,
+  // singletonAlreadySet,
   singletonNotSet,
 } from "./diagnostics";
 
@@ -43,7 +43,7 @@ export function getSeed(seed?: string): string {
 
 export function initializePseudoRandomNumberGenerator(seed?: string) {
   if (random) {
-    throw new Error(singletonAlreadySet("PseudoRandomNumberGenerator"));
+    // throw new Error(singletonAlreadySet("PseudoRandomNumberGenerator"));
   }
 
   random = seedrandom(getSeed(seed));

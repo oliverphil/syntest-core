@@ -209,6 +209,9 @@ export abstract class ObjectiveManager<T extends Encoding> {
             encoding.id
           }`
         );
+        this._currentObjectives.delete(objectiveFunction);
+        this._coveredObjectives.add(objectiveFunction);
+
         // Update the objectives
         this._updateObjectives(objectiveFunction);
 

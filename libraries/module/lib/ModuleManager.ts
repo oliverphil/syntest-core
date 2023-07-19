@@ -78,6 +78,10 @@ export class ModuleManager {
     this._presetsOfModule = new Map();
   }
 
+  public reset() {
+    this._metricManager.reset();
+  }
+
   get args() {
     return this._args;
   }

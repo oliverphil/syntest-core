@@ -80,6 +80,15 @@ export class MetricManager {
     this.seriesDistributions = new Map();
   }
 
+  public reset() {
+    this._namespacedManagers = new Map();
+
+    this.properties = new Map();
+    this.distributions = new Map();
+    this.series = new Map();
+    this.seriesDistributions = new Map();
+  }
+
   get outputMetrics() {
     if (!this._outputMetrics) {
       throw new Error("Output metrics not set");
